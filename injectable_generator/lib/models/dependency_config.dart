@@ -30,7 +30,7 @@ class DependencyConfig {
   final int orderPosition;
   final String? scope;
 
-  const DependencyConfig({
+  DependencyConfig({
     required this.type,
     required this.typeImpl,
     this.injectableType = InjectableType.factory,
@@ -211,6 +211,16 @@ class DependencyConfig {
         "orderPosition": orderPosition,
         if (scope != null) "scope": scope,
       };
+
+  late final int identityHash = type.identity.hashCode ^
+      typeImpl.identity.hashCode ^
+      injectableType.hashCode ^
+      instanceName.hashCode ^
+      orderPosition.hashCode ^
+      scope.hashCode ^
+      const ListEquality().hash(dependencies) ^
+      const ListEquality().hash(dependsOn) ^
+      const ListEquality().hash(environments);
 
   bool get isFromModule => moduleConfig != null;
 
