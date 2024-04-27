@@ -10,6 +10,7 @@ import 'package:glob/list_local_fs.dart';
 import 'package:injectable/injectable.dart';
 import 'package:injectable_generator/code_builder/builder_utils.dart';
 import 'package:injectable_generator/code_builder/library_builder.dart';
+import 'package:injectable_generator/generators/custom_allocator.dart';
 import 'package:injectable_generator/models/dependency_config.dart';
 import 'package:injectable_generator/models/external_module_config.dart';
 import 'package:injectable_generator/models/importable_type.dart';
@@ -149,7 +150,7 @@ class InjectableConfigGenerator extends GeneratorForAnnotation<InjectableInit> {
 
     final generatedLib = generator.generate();
     final emitter = DartEmitter(
-      allocator: Allocator.simplePrefixing(),
+      allocator: CustomAllocator(),
       orderDirectives: true,
       useNullSafetySyntax: usesNullSafety,
     );
